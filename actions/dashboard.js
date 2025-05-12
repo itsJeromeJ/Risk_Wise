@@ -5,6 +5,7 @@ import { db } from "@/lib/prisma";
 import { request } from "@arcjet/next";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 const serializeTransaction = (obj) => {
   const serialized = { ...obj };
@@ -16,6 +17,15 @@ const serializeTransaction = (obj) => {
   }
   return serialized;
 };
+
+const debtSchema = z.object({
+  name: z.string().min(1, "Debt name is required"),
+  currentBalance: z.string().min(1, "Current balance is required"),
+  totalLoan: z.string().min(1, "Total loan is required"),
+  interestRate: z.string().min(1, "Interest rate is required"),
+  monthlyPayment: z.string().min(1, "Monthly payment is required"),
+  dueDate: z.string().min(1, "Due date is required")
+});
 
 export async function getUserAccounts() {
   const { userId } = await auth();

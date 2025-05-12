@@ -1,7 +1,15 @@
 import { currentUser } from "@clerk/nextjs/server";
-import db from "./prisma";
+import { db } from "./prisma";
 
-export const checkUser = async () => {
+interface User {
+  id: string;
+  clerkUserId: string;
+  name: string;
+  imageUrl: string;
+  email: string;
+}
+
+export const checkUser = async (): Promise<User | null> => {
   const user = await currentUser();
 
   if (!user) {
@@ -32,6 +40,7 @@ export const checkUser = async () => {
 
     return newUser;
   } catch (error) {
-    console.log(error.message);
+    console.error("Error in checkUser:", error instanceof Error ? error.message : "Unknown error");
+    return null;
   }
 };

@@ -29,3 +29,13 @@ export const transactionSchema = z
       });
     }
   });
+
+  
+export const debtSchema = z.object({
+  name: z.string().min(1, "Debt name is required"),
+  currentBalance: z.string().min(1, "Current balance is required"),
+  totalLoan: z.string().min(1, "Total loan is required"),
+  interestRate: z.string().min(1, "Interest rate is required"),
+  monthlyPayment: z.string().min(1, "Monthly payment is required"),
+  dueDate: z.string().min(1, "Due date is required"),
+});

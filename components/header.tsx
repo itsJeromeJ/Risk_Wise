@@ -5,21 +5,34 @@ import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { checkUser } from "@/lib/checkUser";
 import Image from "next/image";
+import { Building2, Bot } from "lucide-react";
 
-const Header = async () => {
+const Header: React.FC = async () => {
   await checkUser();
 
   return (
     <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/">
+        <div className="flex items-center space-x-2">
           <Image
-            src={"/logo.png"}
-            alt="Welth Logo"
+            src={"/logo2.png"}
+            alt="Risk Logo"
             width={200}
             height={60}
             className="h-12 w-auto object-contain"
           />
+            <span className="hidden sm:inline-block">
+
+          <Image
+            src={"/logo_next.png"}
+            alt="Risk Logo"
+            width={150}
+            height={50}
+            className="h-12 w-auto object-contain"
+          />
+            </span>
+        </div>
         </Link>
 
         {/* Navigation Links - Different for signed in/out users */}
@@ -28,12 +41,7 @@ const Header = async () => {
             <a href="#features" className="text-gray-600 hover:text-blue-600">
               Features
             </a>
-            <a
-              href="#testimonials"
-              className="text-gray-600 hover:text-blue-600"
-            >
-              Testimonials
-            </a>
+            
           </SignedOut>
         </div>
 
@@ -48,14 +56,28 @@ const Header = async () => {
                 <LayoutDashboard size={18} />
                 <span className="hidden md:inline">Dashboard</span>
               </Button>
-            </Link>
+            
             <a href="/transaction/create">
               <Button className="flex items-center gap-2">
                 <PenBox size={18} />
                 <span className="hidden md:inline">Add Transaction</span>
               </Button>
             </a>
+            <a href="/debt">
+              <Button variant="outline">
+                <Building2 size={18} />
+                <span className="hidden md:inline">Debt</span>
+              </Button>
+            </a>
+            <a href="/ai-advisor">
+              <Button variant="default" className="flex items-center gap-2">
+                <Bot size={18} />
+                <span className="hidden md:inline">Ask Me..</span>
+              </Button>
+            </a>
+            </Link>
           </SignedIn>
+          
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
               <Button variant="outline">Login</Button>
@@ -76,4 +98,4 @@ const Header = async () => {
   );
 };
 
-export default Header;
+export default Header; 

@@ -37,6 +37,9 @@ const clerk = clerkMiddleware(async (auth, req) => {
     return redirectToSignIn();
   }
 
+  // Fallback for unauthenticated users
+  req.userId = userId || 'guest';
+
   return NextResponse.next();
 });
 
